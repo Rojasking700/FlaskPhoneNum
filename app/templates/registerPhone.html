@@ -7,6 +7,10 @@
     {{ regPhone.hidden_tag() }}
     <div class="form-group">
         <fieldset>
+            {{ regPhone.username.label }}
+            {{ regPhone.username(class="form-control",placeholder="Username") }}
+        </fieldset>
+        <fieldset>
             {{ regPhone.firstName.label }}
             {{ regPhone.firstName(class="form-control",placeholder="First Name") }}
         </fieldset>
@@ -33,6 +37,14 @@
         <fieldset>
             {{ regPhone.state.label }}
             {{ regPhone.state(class="form-control",placeholder="State") }}
+        </fieldset>
+        <fieldset>
+            {{ regPhone.password.label }}
+            {{ regPhone.password(class="form-control",placeholder="Password") }}
+        </fieldset>
+        <fieldset>
+            {{ regPhone.confirmPass.label }}
+            {{ regPhone.confirmPass(class="form-control",placeholder="Confirm Password") }}
         </fieldset>
         {{ regPhone.submit(class="btn btn-success") }}
     </div>
