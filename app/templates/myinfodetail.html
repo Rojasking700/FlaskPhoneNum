@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card" style="width: 18rem;">
+    <div class="card-header">
+        <h3>{{ current_user.firstName }} {{ current_user.lastName }}</h3>
+        <h6>@{{ current_user.username }}</h6>
+        
+    </div>
+    <ul class="list-group list-group-flush">
+    <li class="list-group-item">Phone Number: {{ current_user.phoneNum }}</li>
+    <li class="list-group-item">Email: {{ current_user.email }}</li>
+    <li class="list-group-item">Addres: {{ current_user.address }}</li>
+    <li class="list-group-item">City: {{ current_user.city }}</li>
+    <li class="list-group-item">State: {{ current_user.state }}</li>
+    
+    </ul>
+</div>
+
+
+
+    <!-- Update button -->
+    <a href="{{ url_for('myinfoupdate', user_id=current_user.id) }}"><button class="btn btn-primary">Update</button></a>
+
+    <!-- Delete button -->
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete account</button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel"><strong>Delete account </strong>Are You Sure?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          This action cannot be reversed. Are you sure you want to delete your account?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <form action="{{ url_for('myinfodelete', user_id=current_user.id) }}">
+              <input type="submit" value="Delete" class="btn btn-danger">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}

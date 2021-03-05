@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Update you info</h1>
+
+<form action="" method="POST">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        <fieldset>
+            {{ form.username.label }}
+            {{ form.username(class="form-control",placeholder=current_user.username) }}
+        </fieldset>
+        <fieldset>
+            {{ form.firstName.label }}
+            {{ form.firstName(class="form-control",placeholder=current_user.firstName) }}
+        </fieldset>
+        <fieldset>
+            {{ form.lastName.label }}
+            {{ form.lastName(class="form-control",placeholder=current_user.lastName) }}
+        </fieldset>
+        <fieldset>
+            {{ form.phoneNum.label }}
+            {{ form.phoneNum(class="form-control",placeholder=current_user.phoneNum) }}
+        </fieldset>
+        <fieldset>
+            {{ form.email.label }}
+            {{ form.email(class="form-control",placeholder=current_user.email) }}
+        </fieldset>
+        <fieldset>
+            {{ form.address.label }}
+            {{ form.address(class="form-control",placeholder=current_user.address) }}
+        </fieldset>
+        <fieldset>
+            {{ form.city.label }}
+            {{ form.city(class="form-control",placeholder=current_user.city) }}
+        </fieldset>
+        <fieldset>
+            {{ form.state.label }}
+            {{ form.state(class="form-control",placeholder=current_user.state) }}
+        </fieldset>
+        <fieldset>
+            {{ form.password.label }}
+            {{ form.password(class="form-control",placeholder="Password") }}
+        </fieldset>
+        <fieldset>
+            {{ form.confirmPass.label }}
+            {{ form.confirmPass(class="form-control",placeholder="Confirm Password") }}
+        </fieldset>
+        {{ form.submit(class="btn btn-success") }}
+    </div>
+</form>
+{% endblock content %}

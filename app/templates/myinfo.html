@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card" style="width: 18rem;">
+    <div class="card-header">
+        <h3><a href="{{ url_for('myinfodetail', user_id=current_user.id) }}">{{ current_user.firstName }} {{ current_user.lastName }}</a></h3>
+        <h6>@{{ current_user.username }}</h6>
+        
+    </div>
+    <ul class="list-group list-group-flush">
+    <li class="list-group-item">Phone Number: {{ current_user.phoneNum }}</li>
+    <li class="list-group-item">Email: {{ current_user.email }}</li>
+    <li class="list-group-item">Addres: {{ current_user.address }}</li>
+    <li class="list-group-item">City: {{ current_user.city }}</li>
+    <li class="list-group-item">State: {{ current_user.state }}</li>
+    
+    </ul>
+</div>
+
+
+{% endblock content %}

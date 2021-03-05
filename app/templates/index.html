@@ -2,4 +2,48 @@
 
 {% block content %}
 
+    <div class="banner">
+        <h1 class="banner-text">The Only Phone Book You Will Ever Need!</h1>
+    </div>
+    {% if current_user.is_authenticated %}
+        <h4>Welcome, {{ current_user.username }}!</h4>
+        <hr>
+    {% else %}
+        <h2>Please <a href="{{ url_for('RegisterPhoneNum') }}">register</a> for an account or <a href="{{ url_for('login') }}">login</a> </h2>
+        <hr>
+    {% endif %}
+    <div class="userinfo-cards">
+            {% if current_user.is_authenticated %}
+            {% for u in users %}
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    <h3>{{ u.firstName }} {{ u.lastName }}</h3>
+                    <h6>@{{ u.username }}</h6>
+                    
+                </div>
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item">Phone Number: {{ u.phoneNum }}</li>
+                <li class="list-group-item">Email: {{ u.email }}</li>
+                <li class="list-group-item">Addres: {{ u.address }}</li>
+                <li class="list-group-item">City: {{ u.city }}</li>
+                <li class="list-group-item">State: {{ u.state }}</li>
+                
+                </ul>
+            </div>
+            {% endfor %}
+        {% else %}
+            {% for u in users %}
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    <h3>{{ u.firstName }} {{ u.lastName }}</h3>
+                    <h6>@{{ u.username }}</h6>
+                </div>
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item">You must <a href="{{ url_for('RegisterPhoneNum') }}">register</a> or <a href="{{ url_for('login') }}">login</a> to view</li>
+                
+                </ul>
+            </div>
+                {% endfor %}
+        {% endif %}
+    </div>
 {% endblock content %}

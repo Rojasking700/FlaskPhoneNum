@@ -2,14 +2,17 @@ from app import app, db, mail, Message
 from flask import render_template, request, flash, redirect, url_for
 from app.forms import RegisterPhoneForm, LoginForm
 from app.model import User
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash
 
 @app.route('/')
 @app.route('/index')
 def index():
-    title = 'index'
-    return render_template('index.html', title=title)
+    context = {
+        'title' : 'HOME',
+        'users' : User.query.order_by(User.firstName).all()
+    }
+    return render_template('index.html', **context)
 
 @app.route('/RegisterPhoneNum', methods=['GET','POST'])
 def RegisterPhoneNum():
@@ -73,4 +76,69 @@ def logout():
     next_page = request.args.get('next')
     if next_page:
         return redirect(url_for(next_page.lstrip('/')))
+    return redirect(url_for('index'))
+
+@app.route('/myinfo')
+@login_required
+def myinfo():
+    title = "My Info"
+    # user = current_user.User
+    return render_template('myinfo.html', title=title)
+
+@app.route('/myinfo/<int:user_id>')
+@login_required
+def myinfodetail(user_id):
+    user = User.query.get_or_404(user_id)
+    title = f"My Info {user.id}"
+    return render_template('myinfodetail.html', user=user, title=title)
+
+@app.route('/myinfo/update/<int:user_id>', methods=['GET','POST'])
+@login_required
+def myinfoupdate(user_id):
+    title = "My Info Update"
+    user = User.query.get_or_404(user_id)
+    update_form = RegisterPhoneForm()
+
+    if user.id != current_user.id:
+        flash("You can not update another user's info", 'danger')
+        return redirect(url_for('myinfo'))
+
+    if request.method == "POST" and update_form.validate():
+        username = regPhone.username.data
+        firstName = regPhone.firstName.data
+        lastName = regPhone.lastName.data
+        phoneNum = regPhone.phoneNum.data
+        email = regPhone.email.data
+        address = regPhone.address.data
+        city = regPhone.city.data
+        state = regPhone.state.data
+        password = regPhone.password.data
+
+        user.username = username
+        user.firstName = firstName
+        user.lastName = lastName
+        user.phoneNum = phoneNum
+        user.email = email
+        user.address = address
+        user.city = city
+        user.state = state
+        user.password = password
+
+        db.session.commit()
+        flash("Your information has been updated!")
+        return redirect(url_for('myinfodetail'))
+    return render_template('myinfoupdate.html', form=update_form, title=title)
+
+@app.route('/myinfo/delete/<int:user_id>', methods=['GET','POST'])
+@login_required
+def myinfodelete(user_id):
+    user = User.query.get_or_404(user_id)
+    db.session.delete(user)
+    db.session.commit()
+
+    if user.id != current_user.id:
+        flash("You cannot delete another users info", 'danger')
+        return redirect(url_for('index'))
+
+    flash('This sccount has been deletes', 'info')
     return redirect(url_for('index'))

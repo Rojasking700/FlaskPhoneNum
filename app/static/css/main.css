@@ -1,0 +1,21 @@
+.banner{
+    height: 70vh;
+    background-image: url(https://dn.truthorfiction.com/wp-content/uploads/2015/03/25041112/headset-thumbnail-e1427347624950.jpg);
+    background-size: cover;
+}
+
+.banner-text{
+    display: flex;
+    justify-content: center;
+    padding-top: 40%;
+    left: 20rem;
+    top: 10rem;
+    color: white;
+}
+.userinfo-cards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-around;
+
+}
